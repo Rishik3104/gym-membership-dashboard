@@ -1,12 +1,9 @@
-/* Tailwind CSS Directives */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Custom Styles */
+/* src/index.css */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
@@ -15,15 +12,130 @@ body {
   padding: 20px;
 }
 
-.button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+.sidebar {
+  width: 250px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a,
+.sidebar button {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.sidebar a:hover,
+.sidebar button:hover {
+  color: #0056b3;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.main-content h1 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.search-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-filter input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+}
+
+.search-filter select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.table-container {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #f9f9f9;
+  text-align: left;
+}
+
+.table-container tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-container .expired {
+  color: red;
+}
+
+.table-container .active {
+  color: green;
+}
+
+.table-container .actions button {
+  margin-right: 5px;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.button:hover {
+.table-container .actions .edit {
+  background-color: #007bff;
+  color: white;
+}
+
+.table-container .actions .edit:hover {
   background-color: #0056b3;
+}
+
+.table-container .actions .delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.table-container .actions .delete:hover {
+  background-color: #c82333;
 }
