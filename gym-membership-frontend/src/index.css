@@ -17,6 +17,10 @@ body {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .sidebar h2 {
@@ -33,7 +37,6 @@ body {
   margin-bottom: 10px;
 }
 
-.sidebar a,
 .sidebar button {
   display: block;
   padding: 10px 15px;
@@ -44,13 +47,12 @@ body {
   cursor: pointer;
 }
 
-.sidebar a:hover,
 .sidebar button:hover {
   color: #0056b3;
 }
 
 .main-content {
-  flex-grow: 1;
+  margin-left: 270px; /* To accommodate the sidebar */
   padding: 20px;
 }
 
@@ -138,4 +140,40 @@ body {
 
 .table-container .actions .delete:hover {
   background-color: #c82333;
+}
+
+.add-member-container {
+  margin-left: 270px; /* To accommodate the sidebar */
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
 }
