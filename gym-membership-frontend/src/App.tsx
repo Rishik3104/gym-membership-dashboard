@@ -1,11 +1,13 @@
 // src/App.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import AddMember from './components/AddMember';
 
 function App() {
   const [members, setMembers] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
+  const [showAddMember, setShowAddMember] = useState(false);
 
   useEffect(() => {
     fetchMembers();
@@ -23,7 +25,8 @@ function App() {
   };
 
   const today = new Date();
-  const sevenDaysLater = new Date(today.setDate(today.getDate() + 7));
+  const sevenDaysLater = new Date();
+  sevenDaysLater.setDate(today.getDate() + 7);
 
   const filteredMembers = members.filter(member => {
     const expiryDate = new Date(member.membershipExpiryDate);
@@ -37,94 +40,94 @@ function App() {
   );
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md p-4">
-        <h2 className="text-xl font-bold mb-4">Gym Admin Panel</h2>
-        <ul>
-          <li>
-            <a href="#" className="block py-2 text-blue-500 hover:text-blue-700">
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block py-2 text-blue-500 hover:text-blue-700">
-              Add Member
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block py-2 text-blue-500 hover:text-blue-700">
-              Edit/Delete Member
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block py-2 text-blue-500 hover:text-blue-700">
-              Search/Filter Members
-            </a>
-          </li>
-        </ul>
-      </aside>
+    <div className="container">
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className="sidebar">
+          <h2>Gym Admin Panel</h2>
+          <ul>
+            <li>
+              <button className="block" onClick={() => setShowAddMember(true)}>
+                Add Member
+              </button>
+            </li>
+            <li>
+              <button className="block">
+                Edit/Delete Member
+              </button>
+            </li>
+            <li>
+              <button className="block">
+                Search/Filter Members
+              </button>
+            </li>
+          </ul>
+        </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-6 overflow-y-auto">
-        <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+        {/* Main Content */}
+        <main className="main-content">
+          <h1>Dashboard</h1>
 
-        {/* Search Input */}
-        <div className="mb-4 flex items-center space-x-4">
-          <input
-            type="text"
-            placeholder="Search by name or contact number"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="border p-2 rounded-md w-full"
-          />
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="border p-2 rounded-md"
-          >
-            <option value="">All Members</option>
-            <option value="active">Active Members</option>
-            <option value="expiring-soon">Expiring Soon</option>
-            <option value="expired">Expired Members</option>
-          </select>
-        </div>
+          {/* Add Member Form */}
+          {showAddMember && (
+            <AddMember onClose={() => setShowAddMember(false)} />
+          )}
 
-        {/* Member Table */}
-        <div className="bg-white shadow-md rounded-lg p-4">
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th className="py-2">Name</th>
-                <th className="py-2">Contact</th>
-                <th className="py-2">Expiry Date</th>
-                <th className="py-2">Status</th>
-                <th className="py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredMembers.map(member => (
-                <tr key={member._id}>
-                  <td>{member.fullName}</td>
-                  <td>{member.contactNumber}</td>
-                  <td>{new Date(member.membershipExpiryDate).toLocaleDateString()}</td>
-                  <td>
-                    {new Date(member.membershipExpiryDate) < today ? (
-                      <span className="text-red-500">Expired</span>
-                    ) : (
-                      'Active'
-                    )}
-                  </td>
-                  <td>
-                    <button className="text-blue-500 hover:text-blue-700">Edit</button>
-                    <button className="text-red-500 hover:text-red-700 ml-2">Delete</button>
-                  </td>
+          {/* Search Input */}
+          <div className="search-filter">
+            <input
+              type="text"
+              placeholder="Search by name or contact number"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+            >
+              <option value="">All Members</option>
+              <option value="active">Active Members</option>
+              <option value="expiring-soon">Expiring Soon</option>
+              <option value="expired">Expired Members</option>
+            </select>
+          </div>
+
+          {/* Member Table */}
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>Expiry Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </main>
+              </thead>
+              <tbody>
+                {filteredMembers.map(member => (
+                  <tr key={member._id}>
+                    <td>{member.fullName}</td>
+                    <td>{member.contactNumber}</td>
+                    <td>{new Date(member.membershipExpiryDate).toLocaleDateString()}</td>
+                    <td>
+                      {new Date(member.membershipExpiryDate) < today ? (
+                        <span className="expired">Expired</span>
+                      ) : (
+                        <span className="active">Active</span>
+                      )}
+                    </td>
+                    <td className="actions">
+                      <button className="edit">Edit</button>
+                      <button className="delete">Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
