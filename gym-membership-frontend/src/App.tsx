@@ -2,12 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AddMember from './components/AddMember';
+import EditMember from './components/EditMember';
 
 function App() {
   const [members, setMembers] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [showAddMember, setShowAddMember] = useState(false);
+  const [showEditMember, setShowEditMember] = useState<string | null>(null);
 
   useEffect(() => {
     fetchMembers();
@@ -25,8 +27,7 @@ function App() {
   };
 
   const today = new Date();
-  const sevenDaysLater = new Date();
-  sevenDaysLater.setDate(today.getDate() + 7);
+  const sevenDaysLater = new Date(today.setDate(today.getDate() + 7));
 
   const filteredMembers = members.filter(member => {
     const expiryDate = new Date(member.membershipExpiryDate);
@@ -38,6 +39,14 @@ function App() {
     member.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     member.contactNumber.includes(searchTerm)
   );
+
+  const handleEditMember = (memberId: string) => {
+    setShowEditMember(memberId);
+  };
+
+  const handleCloseEditMember = () => {
+    setShowEditMember(null);
+  };
 
   return (
     <div className="container">
@@ -52,7 +61,7 @@ function App() {
               </button>
             </li>
             <li>
-              <button className="block">
+              <button className="block" onClick={() => setShowEditMember('')}>
                 Edit/Delete Member
               </button>
             </li>
@@ -71,6 +80,11 @@ function App() {
           {/* Add Member Form */}
           {showAddMember && (
             <AddMember onClose={() => setShowAddMember(false)} />
+          )}
+
+          {/* Edit Member Form */}
+          {showEditMember && (
+            <EditMember memberId={showEditMember} onClose={handleCloseEditMember} />
           )}
 
           {/* Search Input */}
@@ -118,7 +132,7 @@ function App() {
                       )}
                     </td>
                     <td className="actions">
-                      <button className="edit">Edit</button>
+                      <button className="edit" onClick={() => handleEditMember(member._id)}>Edit</button>
                       <button className="delete">Delete</button>
                     </td>
                   </tr>
@@ -131,5 +145,7 @@ function App() {
     </div>
   );
 }
+
+export default App;
 
 export default App;
