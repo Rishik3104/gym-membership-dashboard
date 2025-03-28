@@ -12,6 +12,8 @@
 body {
   font-family: 'Inter', sans-serif;
   background-color: #000; /* Dark mode background */
+  background: url('C:\Users\Testing\Documents\frontend\public\bg.jpg') no-repeat center center fixed; 
+  background-size: contain;
   color: #fff; /* Light text color */
 }
 
