@@ -1,6 +1,12 @@
 /* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
+/* Custom Font */
+@font-face {
+  font-family: 'Geist';
+  src: url('C:\Users\Testing\Documents\frontend\public\fonts\ttf\Geist-Black.ttf') format('truetype');
+}
+
 /* Global Reset */
 * {
   margin: 0;
@@ -10,10 +16,13 @@
 
 /* Typography */
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #000; /* Dark mode background */
-  background: url('C:\Users\Testing\Documents\frontend\public\bg.jpg') no-repeat center center fixed; 
-  background-size: contain;
+  font-family: 'Geist', sans-serif; /* Use the custom font */
+  background-image: url('C:\Users\Testing\Documents\frontend\public\bg.jpg'); /* Path to your image */
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 100vh; /* Full viewport height */
+  width: 100%; /* Full width */
   color: #fff; /* Light text color */
 }
 
@@ -83,7 +92,7 @@ body {
   border-radius: 5px;
   width: 300px;
   background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: #171616;
 }
 
 .search-filter select {
@@ -91,7 +100,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: #3d5c7e51;
 }
 
 .table-container {
