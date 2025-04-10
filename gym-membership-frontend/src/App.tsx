@@ -47,6 +47,19 @@ function App() {
     setShowEditMember(null);
   };
 
+  const handleDeleteMember = async (memberId: string) => {
+    if (window.confirm('Are you sure you want to delete this member?')) {
+      try {
+        await axios.delete(`http://localhost:5000/api/members/${memberId}`);
+        alert('Member deleted successfully!');
+        fetchMembers(); // Refresh the list of members
+      } catch (error) {
+        console.error('Error deleting member:', error);
+        alert('Failed to delete member.');
+      }
+    }
+  };
+
   return (
     <div className="container">
       <div className="flex">
@@ -59,85 +72,80 @@ function App() {
                 Add Member
               </button>
             </li>
-            <li>
-              <button className="block" onClick={() => setShowEditMember('')}>
-                Edit/Delete Member
-              </button>
-            </li>
-            <li>
-              <button className="block">
-                Search/Filter Members
-              </button>
-            </li>
           </ul>
         </aside>
 
         {/* Main Content */}
         <main className="main-content">
-          <h1>Dashboard</h1>
-
-          {/* Add Member Form */}
-          {showAddMember && (
-            <AddMember onClose={() => setShowAddMember(false)} />
-          )}
-
-          {/* Edit Member Form */}
-          {showEditMember && (
-            <EditMember memberId={showEditMember} onClose={handleCloseEditMember} />
-          )}
-
-          {/* Search Input */}
-          <div className="search-filter">
-            <input
-              type="text"
-              placeholder="Search by name or contact number"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-            >
-              <option value="">All Members</option>
-              <option value="active">Active Members</option>
-              <option value="expiring-soon">Expiring Soon</option>
-              <option value="expired">Expired Members</option>
-            </select>
+          <div className="dashboard-header">
+            <h1>GYM ADMIN PANEL</h1>
+            <p>Manage your members. Track attendance. Stay fit.</p>
           </div>
+          <div className="dashboard-container">
+            <h2>DASHBOARD</h2>
+            {/* Add Member Form */}
+            {showAddMember && (
+              <AddMember onClose={() => setShowAddMember(false)} />
+            )}
 
-          {/* Member Table */}
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Contact</th>
-                  <th>Expiry Date</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredMembers.map(member => (
-                  <tr key={member._id}>
-                    <td>{member.fullName}</td>
-                    <td>{member.contactNumber}</td>
-                    <td>{new Date(member.membershipExpiryDate).toLocaleDateString()}</td>
-                    <td>
-                      {new Date(member.membershipExpiryDate) < today ? (
-                        <span className="expired">Expired</span>
-                      ) : (
-                        <span className="active">Active</span>
-                      )}
-                    </td>
-                    <td className="actions">
-                      <button className="edit" onClick={() => handleEditMember(member._id)}>Edit</button>
-                      <button className="delete">Delete</button>
-                    </td>
+            {/* Edit Member Form */}
+            {showEditMember && (
+              <EditMember memberId={showEditMember} onClose={handleCloseEditMember} />
+            )}
+
+            {/* Search Input */}
+            <div className="search-filter">
+              <input
+                type="text"
+                placeholder="Search by name or contact number"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+              >
+                <option value="">All Members</option>
+                <option value="active">Active Members</option>
+                <option value="expiring-soon">Expiring Soon</option>
+                <option value="expired">Expired Members</option>
+              </select>
+            </div>
+
+            {/* Member Table */}
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Expiry Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {filteredMembers.map(member => (
+                    <tr key={member._id}>
+                      <td>{member.fullName}</td>
+                      <td>{member.contactNumber}</td>
+                      <td>{new Date(member.membershipExpiryDate).toLocaleDateString()}</td>
+                      <td>
+                        {new Date(member.membershipExpiryDate) < today ? (
+                          <span className="expired">Expired</span>
+                        ) : (
+                          <span className="active">Active</span>
+                        )}
+                      </td>
+                      <td className="actions">
+                        <button className="edit" onClick={() => handleEditMember(member._id)}>Edit</button>
+                        <button className="delete" onClick={() => handleDeleteMember(member._id)}>Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </main>
       </div>
