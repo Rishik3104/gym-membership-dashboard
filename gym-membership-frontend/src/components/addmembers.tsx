@@ -40,7 +40,6 @@ const AddMember: React.FC = () => {
       setMember({
         fullName: '',
         contactNumber: '',
-        email: '',
         membershipStartDate: '',
         membershipExpiryDate: '',
         paymentStatus: 'Paid',
@@ -72,16 +71,6 @@ const AddMember: React.FC = () => {
             type="text"
             name="contactNumber"
             value={member.contactNumber}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={member.email}
             onChange={handleChange}
             required
           />
