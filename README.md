@@ -25,7 +25,6 @@ A web-based dashboard designed to manage and track gym memberships, including me
 </p>
 
 - **Node.js** – JavaScript runtime environment to handle server-side logic.
-- **Express.js** – Minimalist web framework for Node.js to create RESTful APIs.
 
 ### 🗂️ Database
 
