@@ -45,10 +45,3 @@ A web-based dashboard designed to manage and track gym memberships, including me
 - Responsive UI for desktop and mobile devices.
 
 ---
-
-## 🛠️ Installation
-
-1. **Clone the repository**  
-   ```bash
-   git clone https://github.com/your-username/gym-membership-dashboard.git
-   cd gym-membership-dashboard
