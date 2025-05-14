@@ -22,7 +22,6 @@ A web-based dashboard designed to manage and track gym memberships, including me
 
 <p align="left">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" width="40" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" width="40" style="background-color: white;" />
 </p>
 
 - **Node.js** – JavaScript runtime environment to handle server-side logic.
