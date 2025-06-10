@@ -35,7 +35,6 @@ A web-based dashboard designed to manage and track gym memberships, including me
 - **MongoDB** – NoSQL database for flexible and scalable data storage.
 
 ---
-
 ## ✨ Features
 
 - Dashboard to view active/inactive members.
