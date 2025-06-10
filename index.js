@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI)
 const cron = require('node-cron');
 const Member = require('./models/member');
 
-// Cron job to check for expired memberships daily at midnight
+
 cron.schedule('0 0 * * *', async () => {
   const today = new Date();
   const expiredMembers = await Member.find({
